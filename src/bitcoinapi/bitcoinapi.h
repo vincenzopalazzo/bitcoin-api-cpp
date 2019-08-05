@@ -26,7 +26,15 @@ private:
 public:
     /* === Constructor and Destructor === */
     BitcoinAPI(const std::string& user, const std::string& password, const std::string& host, int port, int httpTimeout = 50000);
+    BitcoinAPI();
     ~BitcoinAPI();
+
+    /* === Propriety Client Bitcoin === */
+    std::string user;
+    std::string password;
+    std::string host;
+    int port = 8332;
+    int httpTimeout = 50000;
 
     /* === Auxiliary functions === */
     Json::Value sendcommand(const std::string& command, const Json::Value& params);
@@ -151,6 +159,17 @@ public:
     std::vector<std::string> getrawmempool();
     std::string getrawchangeaddress();
 
+    /* === Getter and Setter === */
+    void setUser(const std::string &value);
+    void setPassword(const std::string &value);
+    void setHost(const std::string &value);
+    void setPort(int value);
+    void setHttpTimeout(int value);
+
+    /* === Method for build node === */
+    void buildBitcoinAPI(){
+      BitcoinAPI(user, password, host, port, httpTimeout);
+    }
 };
 
 

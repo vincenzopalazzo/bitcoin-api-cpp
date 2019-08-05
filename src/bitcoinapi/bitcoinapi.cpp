@@ -35,13 +35,39 @@ BitcoinAPI::BitcoinAPI(const string& user, const string& password, const string&
 : httpClient(new HttpClient("http://" + user + ":" + password + "@" + host + ":" + IntegerToString(port))),
   client(new Client(*httpClient, JSONRPC_CLIENT_V1))
 {
-    httpClient->SetTimeout(httpTimeout);
+  httpClient->SetTimeout(httpTimeout);
 }
+
+BitcoinAPI::BitcoinAPI(){}
 
 BitcoinAPI::~BitcoinAPI()
 {
     delete client;
     delete httpClient;
+}
+
+void BitcoinAPI::setHttpTimeout(int value){
+  httpTimeout = value;
+}
+
+void BitcoinAPI::buildBitcoinAPI(){
+  BitcoinAPI(user, password, host, port, httpTimeout);
+}
+
+void BitcoinAPI::setPort(int value){
+  port = value;
+}
+
+void BitcoinAPI::setHost(const std::string &value){
+  host = value;
+}
+
+void BitcoinAPI::setPassword(const std::string &value){
+  password = value;
+}
+
+void BitcoinAPI::setUser(const std::string &value){
+  user = value;
 }
 
 Value BitcoinAPI::sendcommand(const string& command, const Value& params){    
